@@ -67,10 +67,7 @@
 									"type": "ParquetSource",
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
-										"fileListPath": {
-											"value": "@item().name",
-											"type": "Expression"
-										},
+										"recursive": true,
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
