@@ -1,0 +1,10 @@
+{
+	"name": "keyvaultlinkedservice",
+	"properties": {
+		"annotations": [],
+		"type": "AzureKeyVault",
+		"typeProperties": {
+			"baseUrl": "https://kvbrief.vault.azure.net/"
+		}
+	}
+}
