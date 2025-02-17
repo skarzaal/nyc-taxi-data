@@ -67,8 +67,7 @@
 									"type": "ParquetSource",
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
-										"recursive": true,
-										"wildcardFileName": "*.parquet",
+										"fileListPath": "@concat('raw/', substring(item().name, 9, 4), '/', substring(item().name, 14, 2), '/', item().name)",
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
