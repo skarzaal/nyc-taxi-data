@@ -1,16 +1,24 @@
 {
-	"name": "Parquet1",
+	"name": "source",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBloblinkedservice",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"filename": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "Parquet",
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"fileName": "yellow_tripdata_2020-10.parquet",
+				"fileName": {
+					"value": "@dataset().filename",
+					"type": "Expression"
+				},
 				"container": "files"
 			},
 			"compressionCodec": "snappy"

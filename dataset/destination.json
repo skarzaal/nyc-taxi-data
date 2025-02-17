@@ -1,9 +1,17 @@
 {
-	"name": "Parquet2",
+	"name": "destination",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "AzureBloblinkedservice",
 			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"filedestination": {
+				"type": "string"
+			},
+			"folderdestination": {
+				"type": "string"
+			}
 		},
 		"annotations": [],
 		"type": "Parquet",
