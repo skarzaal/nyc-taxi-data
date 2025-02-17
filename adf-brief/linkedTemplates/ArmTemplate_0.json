@@ -81,6 +81,49 @@
 			]
 		},
 		{
+			"name": "[concat(parameters('factoryName'), '/Parquet3')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "AzureDataLakeStorage1",
+					"type": "LinkedServiceReference"
+				},
+				"parameters": {
+					"month": {
+						"type": "string"
+					},
+					"year": {
+						"type": "string"
+					},
+					"filename": {
+						"type": "string"
+					}
+				},
+				"annotations": [],
+				"type": "Parquet",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
+						"folderPath": {
+							"value": "@concat(dataset().year, '/', dataset().month)",
+							"type": "Expression"
+						},
+						"fileSystem": "raw"
+					},
+					"compressionCodec": "snappy"
+				},
+				"schema": []
+			},
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/linkedServices/AzureDataLakeStorage1')]"
+			]
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/Parquet1')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -94,87 +137,38 @@
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
-						"fileName": "yellow_tripdata_2020-10.parquet",
 						"container": "files"
 					},
 					"compressionCodec": "snappy"
 				},
 				"schema": [
 					{
-						"name": "VendorID",
-						"type": "INT64"
-					},
-					{
-						"name": "tpep_pickup_datetime",
-						"type": "TIMESTAMP_MICROS"
-					},
-					{
-						"name": "tpep_dropoff_datetime",
-						"type": "TIMESTAMP_MICROS"
-					},
-					{
-						"name": "passenger_count",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "trip_distance",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "RatecodeID",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "store_and_fwd_flag",
+						"name": "dispatching_base_num",
 						"type": "UTF8"
 					},
 					{
-						"name": "PULocationID",
-						"type": "INT64"
+						"name": "pickup_datetime",
+						"type": "TIMESTAMP_MICROS"
 					},
 					{
-						"name": "DOLocationID",
-						"type": "INT64"
+						"name": "dropOff_datetime",
+						"type": "TIMESTAMP_MICROS"
 					},
 					{
-						"name": "payment_type",
-						"type": "INT64"
-					},
-					{
-						"name": "fare_amount",
+						"name": "PUlocationID",
 						"type": "DOUBLE"
 					},
 					{
-						"name": "extra",
+						"name": "DOlocationID",
 						"type": "DOUBLE"
 					},
 					{
-						"name": "mta_tax",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "tip_amount",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "tolls_amount",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "improvement_surcharge",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "total_amount",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "congestion_surcharge",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "airport_fee",
+						"name": "SR_Flag",
 						"type": "INT32"
+					},
+					{
+						"name": "Affiliated_base_number",
+						"type": "UTF8"
 					}
 				]
 			},
@@ -191,91 +185,52 @@
 					"referenceName": "AzureBloblinkedservice",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"filename": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "Parquet",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobStorageLocation",
+						"fileName": {
+							"value": "@dataset().filename",
+							"type": "Expression"
+						},
 						"container": "files"
 					},
 					"compressionCodec": "snappy"
 				},
 				"schema": [
 					{
-						"name": "VendorID",
-						"type": "INT64"
-					},
-					{
-						"name": "tpep_pickup_datetime",
-						"type": "TIMESTAMP_MICROS"
-					},
-					{
-						"name": "tpep_dropoff_datetime",
-						"type": "TIMESTAMP_MICROS"
-					},
-					{
-						"name": "passenger_count",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "trip_distance",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "RatecodeID",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "store_and_fwd_flag",
+						"name": "dispatching_base_num",
 						"type": "UTF8"
 					},
 					{
-						"name": "PULocationID",
-						"type": "INT64"
+						"name": "pickup_datetime",
+						"type": "TIMESTAMP_MICROS"
 					},
 					{
-						"name": "DOLocationID",
-						"type": "INT64"
+						"name": "dropOff_datetime",
+						"type": "TIMESTAMP_MICROS"
 					},
 					{
-						"name": "payment_type",
-						"type": "INT64"
-					},
-					{
-						"name": "fare_amount",
+						"name": "PUlocationID",
 						"type": "DOUBLE"
 					},
 					{
-						"name": "extra",
+						"name": "DOlocationID",
 						"type": "DOUBLE"
 					},
 					{
-						"name": "mta_tax",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "tip_amount",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "tolls_amount",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "improvement_surcharge",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "total_amount",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "congestion_surcharge",
-						"type": "DOUBLE"
-					},
-					{
-						"name": "airport_fee",
+						"name": "SR_Flag",
 						"type": "INT32"
+					},
+					{
+						"name": "Affiliated_base_number",
+						"type": "UTF8"
 					}
 				]
 			},
@@ -284,13 +239,13 @@
 			]
 		},
 		{
-			"name": "[concat(parameters('factoryName'), '/pipeline1')]",
+			"name": "[concat(parameters('factoryName'), '/CopyFilesWithForEach')]",
 			"type": "Microsoft.DataFactory/factories/pipelines",
 			"apiVersion": "2018-06-01",
 			"properties": {
 				"activities": [
 					{
-						"name": "Get Metadata1",
+						"name": "GetMetaDataForBlob",
 						"type": "GetMetadata",
 						"dependsOn": [],
 						"policy": {
@@ -303,7 +258,7 @@
 						"userProperties": [],
 						"typeProperties": {
 							"dataset": {
-								"referenceName": "Parquet2",
+								"referenceName": "Parquet1",
 								"type": "DatasetReference",
 								"parameters": {}
 							},
@@ -312,12 +267,106 @@
 							],
 							"storeSettings": {
 								"type": "AzureBlobStorageReadSettings",
-								"recursive": true,
 								"enablePartitionDiscovery": false
 							},
 							"formatSettings": {
 								"type": "ParquetReadSettings"
 							}
+						}
+					},
+					{
+						"name": "ForEach1",
+						"type": "ForEach",
+						"dependsOn": [
+							{
+								"activity": "GetMetaDataForBlob",
+								"dependencyConditions": [
+									"Completed"
+								]
+							}
+						],
+						"userProperties": [],
+						"typeProperties": {
+							"items": {
+								"value": "@activity('GetMetaDataForBlob').output.childItems",
+								"type": "Expression"
+							},
+							"isSequential": true,
+							"activities": [
+								{
+									"name": "Copy data1",
+									"type": "Copy",
+									"dependsOn": [],
+									"policy": {
+										"timeout": "0.12:00:00",
+										"retry": 0,
+										"retryIntervalInSeconds": 30,
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"source": {
+											"type": "ParquetSource",
+											"storeSettings": {
+												"type": "AzureBlobStorageReadSettings",
+												"recursive": true,
+												"enablePartitionDiscovery": false
+											},
+											"formatSettings": {
+												"type": "ParquetReadSettings"
+											}
+										},
+										"sink": {
+											"type": "ParquetSink",
+											"storeSettings": {
+												"type": "AzureBlobFSWriteSettings"
+											},
+											"formatSettings": {
+												"type": "ParquetWriteSettings"
+											}
+										},
+										"enableStaging": false,
+										"translator": {
+											"type": "TabularTranslator",
+											"typeConversion": true,
+											"typeConversionSettings": {
+												"allowDataTruncation": true,
+												"treatBooleanAsNumber": false
+											}
+										}
+									},
+									"inputs": [
+										{
+											"referenceName": "Parquet2",
+											"type": "DatasetReference",
+											"parameters": {
+												"filename": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
+										}
+									],
+									"outputs": [
+										{
+											"referenceName": "Parquet3",
+											"type": "DatasetReference",
+											"parameters": {
+												"month": {
+													"value": "@substring(item().name, add(lastIndexOf(item().name, '_'), 6), 2)",
+													"type": "Expression"
+												},
+												"year": "@substring(item().name, add(lastIndexOf(item().name, '_'), 1), 4)",
+												"filename": {
+													"value": "@item().name",
+													"type": "Expression"
+												}
+											}
+										}
+									]
+								}
+							]
 						}
 					}
 				],
@@ -327,7 +376,9 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/Parquet2')]"
+				"[concat(variables('factoryId'), '/datasets/Parquet1')]",
+				"[concat(variables('factoryId'), '/datasets/Parquet2')]",
+				"[concat(variables('factoryId'), '/datasets/Parquet3')]"
 			]
 		}
 	]
