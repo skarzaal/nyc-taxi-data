@@ -68,6 +68,7 @@
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
 										"recursive": true,
+										"wildcardFileName": "*.parquet",
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
@@ -77,7 +78,11 @@
 								"sink": {
 									"type": "ParquetSink",
 									"storeSettings": {
-										"type": "AzureBlobFSWriteSettings"
+										"type": "AzureBlobFSWriteSettings",
+										"copyBehavior": {
+											"value": "@concat('raw/', substring(item().name, 9, 4), '/', substring(item().name, 14, 2), '/', item().name)\n",
+											"type": "Expression"
+										}
 									},
 									"formatSettings": {
 										"type": "ParquetWriteSettings"
