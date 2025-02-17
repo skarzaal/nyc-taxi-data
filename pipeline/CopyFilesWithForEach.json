@@ -67,7 +67,10 @@
 									"type": "ParquetSource",
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
-										"fileListPath": "@concat('raw/', substring(item().name, 9, 4), '/', substring(item().name, 14, 2), '/', item().name)",
+										"fileListPath": {
+											"value": "@item().name",
+											"type": "Expression"
+										},
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
