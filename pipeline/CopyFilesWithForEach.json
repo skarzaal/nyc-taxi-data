@@ -68,7 +68,7 @@
 									"storeSettings": {
 										"type": "AzureBlobStorageReadSettings",
 										"fileListPath": {
-											"value": "@item().name",
+											"value": "@item()",
 											"type": "Expression"
 										},
 										"enablePartitionDiscovery": false
