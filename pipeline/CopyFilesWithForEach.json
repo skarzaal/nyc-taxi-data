@@ -104,7 +104,15 @@
 									"referenceName": "Parquet3",
 									"type": "DatasetReference",
 									"parameters": {
-										"month": "@substring(item().name, add(lastIndexOf(item().name, '_'), 1), 4)"
+										"month": {
+											"value": "@substring(item().name, add(lastIndexOf(item().name, '_'), 6), 2)",
+											"type": "Expression"
+										},
+										"year": "@substring(item().name, add(lastIndexOf(item().name, '_'), 1), 4)",
+										"filename": {
+											"value": "@item().name",
+											"type": "Expression"
+										}
 									}
 								}
 							]
